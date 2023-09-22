@@ -1,50 +1,44 @@
 var GlobalKeyboardListener = require("node-global-key-listener").GlobalKeyboardListener;
-
 const v = new GlobalKeyboardListener();
 
-//Log every key that's pressed.
-v.addListener(function (e, down) {
-    console.log(
-        `${e.name} ${e.state == "DOWN" ? "DOWN" : "UP  "} [${e.rawKey._nameRaw}]`
-    );
-});
+let capturedOutput = '';
 
-//Capture Windows + Space on Windows and Command + Space on Mac
-v.addListener(function (e, down) {
-    if (
-        e.state == "DOWN" &&
-        e.name == "SPACE" &&
-        (down["LEFT META"] || down["RIGHT META"])
-    ) {
-        //call your function
-        return true;
+v.addListener(function (e) {
+    if (e.state == "DOWN") {
+      if (e.name == "a" || e.name == "b" || e.name == "c" || e.name == "d" || e.name == "e" ||
+      e.name == "f" || e.name == "g" || e.name == "h" || e.name == "i" || e.name == "j" ||
+      e.name == "k" || e.name == "l" || e.name == "m" || e.name == "n" || e.name == "o" ||
+      e.name == "p" || e.name == "q" || e.name == "r" || e.name == "s" || e.name == "t" ||
+      e.name == "u" || e.name == "v" || e.name == "w" || e.name == "x" || e.name == "y" ||
+      e.name == "z" || e.name == "A" || e.name == "B" || e.name == "C" || e.name == "D" ||
+      e.name == "E" || e.name == "F" || e.name == "G" || e.name == "H" || e.name == "I" ||
+      e.name == "J" || e.name == "K" || e.name == "L" || e.name == "M" || e.name == "N" ||
+      e.name == "O" || e.name == "P" || e.name == "Q" || e.name == "R" || e.name == "S" ||
+      e.name == "T" || e.name == "U" || e.name == "V" || e.name == "W" || e.name == "X" ||
+      e.name == "Y" || e.name == "Z" || e.name == "0" || e.name == "1" || e.name == "2" ||
+      e.name == "3" || e.name == "4" || e.name == "5" || e.name == "6" || e.name == "7" ||
+      e.name == "8" || e.name == "9"){
+        capturedOutput += (`${e.name}`);
+      }
+      else if (e.state == "DOWN" && e.name == "SPACE"){
+        capturedOutput += (` `);
+      }
+      else if (e.name == "DOT"){
+        capturedOutput += (`.`);
+      }
+      else if (e.name == "LEFT ALT" || e.name == "RIGHT ALT" || e.name == "LEFT SHIFT" || 
+      e.name == "RIGHT SHIFT" || e.name == "LEFT CTRL" || e.name == "RIGHT CTRL"){
+        capturedOutput += (` <DOWN ${e.name}> `);
+      }
+      else{
+        capturedOutput += (` <${e.name}> `);
+      }
     }
-});
-
-//Capture ALT + F
-v.addListener(function (e, down) {
-    if (e.state == "DOWN" && e.name == "F" && (down["LEFT ALT"] || down["RIGHT ALT"])) {
-        //call your function
-        return true;
+    else if (e.state == "UP" &&
+    e.name == "LEFT ALT" || e.name == "RIGHT ALT" || e.name == "LEFT SHIFT" || 
+    e.name == "RIGHT SHIFT" || e.name == "LEFT CTRL" || e.name == "RIGHT CTRL"){
+      capturedOutput += (` <UP ${e.name}> `);
     }
+
+    //console.log(capturedOutput);
 });
-
-//Call one listener only once (demonstrating removeListener())
-calledOnce = function (e) {
-    console.log("only called once");
-    v.removeListener(calledOnce);
-};
-v.addListener(calledOnce);
-
-/* 
- To add logging of errors please use. This is hopefully not needed in most cases, but may still be useful in production.
-    new GlobalKeyboardListener({
-        windows: {
-            onError: (errorCode) => console.error("ERROR: " + errorCode),
-            onInfo: (info) => console.info("INFO: " + info)
-        },
-        mac: {
-            onError: (errorCode) => console.error("ERROR: " + errorCode),
-        }
-    })
-*/
